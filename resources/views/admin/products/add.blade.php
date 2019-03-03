@@ -28,17 +28,32 @@
                             <li><a href="#details" data-toggle="tab">Details</a></li>--}}
                         </ul>
                         <div class="tab-content">
+                            <form method="post">
+                                @csrf
                             <div class="active tab-pane" id="general">
                                 <div class="col-xs-12 xs-pl-0">
-
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <b>Lỗi!! Bạn vui vòng kiểm tra lại:</b>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                         <div class="form-group">
                                             <label>Tên sản phẩm</label>
-                                            <input type="text" class="form-control">
+                                            <input name="txtTenSp" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Mô tả</label>
-                                            <input type="text" class="form-control" placeholder="Enter ...">
+                                            <input name="txtMota" type="text" class="form-control" placeholder="Enter ...">
                                         </div>
+                                    <div class="form-group">
+                                        <label>Số lượng</label>
+                                        <input name="txtSoluong" type="text" class="form-control" placeholder="Enter ...">
+                                    </div>
                                         <div class="form-group">
                                             <label>Thể loại </label>
                                             <select name="category_id" id="category_id" class="form-control">
@@ -48,15 +63,11 @@
                                             </select>
                                         </div>
                                 </div>
-
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-10"></div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-block btn-success">
-                                                <span class="btn-icon"><i class="fa fa-save"></i></span> Save
-                                            </button>
+                                <div class="box-footer">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button type="submit" class="btn btn-info pull-right">Thêm</button>
+                                            <a href="{{route('product/list')}}"><label class="btn btn-default pull-right">Trở về</label></a>
                                         </div>
                                     </div>
                                 </div>
@@ -131,6 +142,7 @@
                             <!-- /.tab-pane -->
                             <!-- /.tab-pane -->
                             <!-- /.tab-pane -->--}}
+                            </form>
                         </div>
                         <!-- /.tab-content -->
                     </div>

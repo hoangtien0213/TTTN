@@ -31,22 +31,22 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Màu sắc</label>
-                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="txtMau" class="form-control" placeholder="Enter ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Giá</label>
-                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="txtGia" class="form-control" placeholder="Enter ...">
                                 </div>
                             </div>
                             <div class="col-md-1"></div>
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>Giảm giá</label>
-                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="txtGiamGia" class="form-control" placeholder="Enter ...">
                                 </div>
                                 <div class="form-group">
                                     <label>Sản phẩm - ID</label>
-                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                    <input type="text" disabled name="product_id" value="{{ old('product_id',$id) }}" class="form-control" placeholder="Enter ...">
                                 </div>
                             </div>
                         </div>

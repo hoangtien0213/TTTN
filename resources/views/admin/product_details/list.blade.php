@@ -46,7 +46,7 @@
     padding-left: 0px;">
                             <h3 class="box-title">Chi tiết sản phẩm: Tên sản phẩm</h3>
                         </div>
-                        <div class="col-md-2" style="padding-left: 37px;"> <a href="{{route('details/add')}}"><button class="btn btn-info" title="Edit"><i class="fa fa-user-plus">Thêm chi tiết</i></button></a></div>
+                        <div class="col-md-2" style="padding-left: 37px;"> <a href="{{route('details/add',request()->route('id'))}}"><button class="btn btn-info" title="Edit"><i class="fa fa-user-plus">Thêm chi tiết</i></button></a></div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -65,28 +65,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <?php $count=1 ?>
+                                        @foreach($detailsList as $details)
                                         <tr role="row" class="odd">
-                                            <td class="sorting_1">1</td>
-                                            <td>Sam Sung Galaxy S9+</td>
-                                            <td>Đen</td>
-                                            <td>7000000</td>
-                                            <td>0</td>
+                                            <td class="sorting_1">{{$count}}</td>
+                                            <td>{{$details->detailsType->title}}</td>
+                                            <td>{{$details->color}}</td>
+                                            <td>{{$details->price}}</td>
+                                            <td>{{$details->sale}}</td>
                                             <td>
                                                 <a href="{{route('details/edit')}}"><button class="btn btn-link" title="Edit"><i class="fa fa-pencil"></i></button></a>
                                                 <a href="#"><button  class="btn btn-link" title="Delete"><i class="fa  fa-trash"></i> </button></a>
                                             </td>
+                                            <?php $count++?>
                                         </tr>
-                                        <tr role="row" class="even">
-                                           <td class="sorting_1">1</td>
-                                            <td>Sam Sung Galaxy S9+</td>
-                                            <td>Trắng</td>
-                                            <td>8000000</td>
-                                            <td>0</td>
-                                            <td>
-                                                <a href="{{route('details/edit')}}"><button class="btn btn-link" title="Edit"><i class="fa fa-pencil"></i></button></a>
-                                                <a href="#"><button  class="btn btn-link" title="Delete"><i class="fa  fa-trash"></i> </button></a>
-                                            </td>
-                                        </tr>
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
                                         <tr>

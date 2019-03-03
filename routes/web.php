@@ -33,14 +33,14 @@ Route::group(['prefix'=> '/'],function(){
     //Products
     Route::get('/product','ProductsController@getProducts')->name('product/list');
     Route::get('/product/add','ProductsController@requestProductAdd')->name('product/add');
-    Route::post('/product/add','ProductsController@responseProductAdd')->name('product/add');
-    Route::get('/product/edit','ProductsController@requestProductEdit')->name('product/edit');
-    Route::post('/product/edit','ProductsController@responseProductEdit')->name('product/edit');
+    Route::post('/product/add','ProductsController@AddProduct')->name('product/add');
+    Route::get('/product/edit/{id}','ProductsController@requestProductEdit')->name('product/edit');
+    Route::post('/product/edit/{id}','ProductsController@update')->name('product/edit');
     Route::get('product/delete/{id}','ProductsController@destroy')->name('product/delete');
     //Product Details
-    Route::get('/product/details','ProductsController@ProductDetails')->name('product/details');
-    Route::get('/details/edit','ProductsController@ProductDetailsEdit')->name('details/edit');
-    Route::get('/details/add','ProductsController@ProductDetailsAdd')->name('details/add');
+    Route::get('/product/details/{id}','ProductDetailsController@ProductDetails')->name('product/details');
+    Route::get('/details/edit','ProductDetailsController@ProductDetailsEdit')->name('details/edit');
+    Route::get('/details/add/{id}','ProductDetailsController@ProductDetailsAdd')->name('details/add');
     //Product Images
     Route::get('/product/images','ProductsController@ProductImages')->name('product/images');
     Route::get('/images/edit','ProductsController@ProductImagesEdit')->name('images/edit');

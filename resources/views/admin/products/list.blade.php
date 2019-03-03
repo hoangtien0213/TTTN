@@ -50,12 +50,23 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
+                            @if (session('add-success'))
+                                <script>
+                                    alert('{{session('add-success')}}');
+                                </script>
+                            @endif
+                            @if (session('message'))
+                                <script>
+                                    alert('{{session('message')}}');
+                                </script>
+
+                            @endif
                             <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
                                 <div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 14px;">ID</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 14px;">STT</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 160px;">Tên sản phẩm</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 199px;">Mô tả</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 50px;">Số lượng</th>
@@ -65,19 +76,21 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <?php $count=1 ?>
                                             @foreach($productlist as $pro)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">{{$pro->id}}</td>
-                                                <td><a href="{{route('product/details')}}">{{$pro->title}}</a></td>
+                                                <td class="sorting_1">{{$count}}</td>
+                                                <td><a href="{{route('product/details',$pro->id)}}">{{$pro->title}}</a></td>
                                                 <td>{{$pro->des}}</td>
                                                 <td>{{$pro->quantity}}</td>
-                                                <td>{{$pro->category_id}}</td>
+                                                <td>{{$pro->productType->title}}</td>
                                                 <td>
-                                                    <a href="{{route('product/edit')}}"><button class="btn btn-link" title="Edit"><i class="fa fa-pencil"></i></button></a>
+                                                    <a href="{{route('product/edit',$pro->id)}}"><button class="btn btn-link" title="Edit"><i class="fa fa-pencil"></i></button></a>
                                                     <a href="{{route('product/images')}}"><button class="btn btn-link" title="Images Product"><i class="fa fa-file-image-o"></i></button></a>
-                                                    <a href="{{route('product/delete',$pro->id)}}"><button  class="btn btn-link" title="Delete"><i class="fa  fa-trash"></i> </button></a>
+                                                    <a href="{{route('product/delete',$pro->id)}}" onclick="return confirm('Bạn có chắc chắn xóa')"><button  class="btn btn-link" title="Delete"><i class="fa  fa-trash"></i> </button></a>
                                                 </td>
                                             </tr>
+                                                <?php $count++ ?>
                                             @endforeach
                                             </tbody>
                                             <tfoot>
@@ -107,7 +120,5 @@
         <!-- /.content -->
     </div>
 @endsection
-@if(session('message'))
-    alert('{{message}}');
-@endif
+
 

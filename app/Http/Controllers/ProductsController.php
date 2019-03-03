@@ -2,32 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Model\CategoriesModel;
+use App\Http\Requests\AddProduct;
 use Illuminate\Http\Request;
 use App\Model\ProductsModel;
 
 class ProductsController extends Controller
 {
     public function getProducts(){
-        $data['productlist']=ProductsModel::all();
+        $data['productlist']=ProductsModel::with('productType')->get();
         return view('admin.products.list',$data);
+
+    }
+    /**Them*/
+    public function AddProduct(AddProduct $request)
+    {
+        $product = new ProductsModel;
+        $product->title = $request->txtTenSp;
+        $product->des=$request->txtMota;
+        $product->quantity=$request->txtSoluong;
+        $product->category_id=$request->category_id;
+
+        // Create a url slug from name of product type
+
+        $product->save();
+
+        return redirect()->route('product/list')->with('add-success', 'Bạn đã thêm thành công');
     }
     public function requestProductAdd(){
-        $dsTheLoai = Category::all();
+        $dsTheLoai = CategoriesModel::all();
         return view('admin.products.add', ['dsTheLoai' => $dsTheLoai]);
     }
-    public function requestProductEdit(){
-        $dsTheLoai = Category::all();
-        return view('admin.products.edit', ['dsTheLoai' => $dsTheLoai]);
+    public function requestProductEdit($id){
+        $dsTheLoai = CategoriesModel::all();
+        $product = ProductsModel::findOrFail($id);
+        return view('admin.products.edit',['dsTheLoai' => $dsTheLoai])->with('productlist', $product);
     }
-    public function ProductDetails(){
-        return view('admin.product_details.list');
-    }
-    public function ProductDetailsEdit(){
-        return view('admin.product_details.edit');
-    }
-    public function ProductDetailsAdd(){
-        return view('admin.product_details.add');
+    public function update(AddProduct $request, $id)
+    {
+        $product = ProductsModel::findOrFail($id);
+        $product->title = $request->txtTenSp;
+        $product->des=$request->txtMota;
+        $product->quantity=$request->txtSoluong;
+        $product->category_id=$request->category_id;
+        $product->save();
+        return back()->withInput()->with('success','Sửa thành công!');
     }
     public  function ProductImages()
     {
